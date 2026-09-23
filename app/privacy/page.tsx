@@ -8,7 +8,7 @@ export default function Privacy() {
     <div className="wrap">
       <div className="article">
         <h1>Privacy Policy</h1>
-        <p className="intro">Last updated September 23, 2026. Health questions are personal. FreeDoc, operated by Island Global Co., is built to know as little about you as possible. Health-specific details, including your rights under state health privacy laws, are in our <Link href="/health-data">Consumer Health Data Privacy Policy</Link>.</p>
+        <p className="intro">Last updated September 23, 2026. Health questions are personal. FreeDoc, operated by Island Global Company, is built to know as little about you as possible. Health-specific details, including your rights under state health privacy laws, are in our <Link href="/health-data">Consumer Health Data Privacy Policy</Link>.</p>
         <h2>What we don’t do</h2>
         <ul className="list">
           <li>We don’t require an account, a name, or an email to check symptoms.</li>

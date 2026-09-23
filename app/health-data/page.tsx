@@ -14,7 +14,7 @@ export default function HealthData() {
     <div className="wrap">
       <div className="article">
         <h1>Consumer Health Data Privacy Policy</h1>
-        <p className="intro">Last updated {UPDATED}. This policy explains how FreeDoc, operated by Island Global Co., handles consumer health data, including under the Washington My Health My Data Act, Nevada’s consumer health data law, and similar state laws.</p>
+        <p className="intro">Last updated {UPDATED}. This policy explains how FreeDoc, operated by Island Global Company, handles consumer health data, including under the Washington My Health My Data Act, Nevada’s consumer health data law, and similar state laws.</p>
 
         <h2>Health data we collect</h2>
         <ul className="list">

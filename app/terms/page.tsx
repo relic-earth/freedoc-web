@@ -22,7 +22,7 @@ export default function Terms() {
         </div>
 
         <h2>1. Who we are</h2>
-        <p>FreeDoc (freedoc.live) is operated by Island Global Co. (“FreeDoc,” “we,” “us”). You can reach us at <a href="mailto:info@island.contact">info@island.contact</a>.</p>
+        <p>FreeDoc (freedoc.live) is operated by Island Global Company (“FreeDoc,” “we,” “us”). You can reach us at <a href="mailto:info@island.contact">info@island.contact</a>.</p>
 
         <h2>2. FreeDoc is not medical care</h2>
         <p>FreeDoc is an automated tool that uses artificial intelligence to share general health information and to suggest how soon someone may want to seek care. FreeDoc is not a doctor, nurse, or other licensed clinician. It does not examine anyone, diagnose any condition, or prescribe or recommend any treatment.</p>
@@ -38,6 +38,10 @@ export default function Terms() {
         <h2>5. Links, referrals, and sponsors</h2>
         <p>FreeDoc may link to third-party care options, such as telehealth services, urgent care finders, and pharmacies, and may show sponsored content. We do not provide, control, or endorse those services, and you use them under their own terms. We may earn a fee when you use some links. Fees and sponsorships never change the care level FreeDoc shows you.</p>
 
+        <h2>5a. Paid plans and sponsorships</h2>
+        <p>FreeDoc Plus is a paid subscription billed through Stripe at the price shown at checkout, currently $7 per month or $59 per year, plus any applicable tax. Plus is rolling out in stages, and some listed features may not be available yet when you subscribe. Your subscription renews automatically at the end of each billing period until you cancel. You can cancel at any time by emailing <a href="mailto:info@island.contact?subject=Cancel%20FreeDoc%20Plus">info@island.contact</a>; we cancel the same day, and we refund unused time on request. The free symptom check does not require a subscription.</p>
+        <p>Topic sponsorships are billed monthly in advance by invoice, payable by card through Stripe or by wire or ACH through Mercury. Sponsorships can be canceled before the next billing period. Sponsored content is labeled and never changes the care level FreeDoc shows.</p>
+
         <h2>6. Acceptable use</h2>
         <p>Do not misuse FreeDoc. That includes trying to break, overload, or reverse engineer it, scraping it, using it to build a competing service, or entering other people’s personal information without their permission.</p>
 
@@ -45,7 +49,7 @@ export default function Terms() {
         <p>FreeDoc is provided “as is” and “as available,” without warranties of any kind, whether express or implied, including warranties of accuracy, merchantability, fitness for a particular purpose, and non-infringement. We do not promise that FreeDoc will be accurate, complete, uninterrupted, or error-free.</p>
 
         <h2>8. Limitation of liability</h2>
-        <p>To the fullest extent the law allows, FreeDoc and Island Global Co., and their owners, employees, and partners, will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any injury, illness, or loss that results from relying on FreeDoc instead of seeking professional medical care. Our total liability for any claim relating to FreeDoc is limited to one hundred U.S. dollars ($100). Some places do not allow these limits, so they may not fully apply to you.</p>
+        <p>To the fullest extent the law allows, FreeDoc and Island Global Company, and their owners, employees, and partners, will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any injury, illness, or loss that results from relying on FreeDoc instead of seeking professional medical care. Our total liability for any claim relating to FreeDoc is limited to one hundred U.S. dollars ($100). Some places do not allow these limits, so they may not fully apply to you.</p>
 
         <h2>9. Indemnity</h2>
         <p>If you use FreeDoc in violation of these terms or the law, you agree to cover the reasonable costs, including legal fees, that we incur as a result.</p>
@@ -58,7 +62,7 @@ export default function Terms() {
         <p>We may update FreeDoc or these terms at any time. When we make important changes, we will update the date at the top of this page. Continuing to use FreeDoc after a change means you accept the updated terms. We may suspend or end access to FreeDoc at any time.</p>
 
         <h2>12. General</h2>
-        <p>These terms are governed by the laws of the United States and the state in which Island Global Co. is organized, without regard to conflict-of-law rules. If any part of these terms is found unenforceable, the rest stays in effect. These terms, together with our privacy policies, are the entire agreement between you and us about FreeDoc.</p>
+        <p>These terms are governed by the laws of the United States and the state in which Island Global Company is organized, without regard to conflict-of-law rules. If any part of these terms is found unenforceable, the rest stays in effect. These terms, together with our privacy policies, are the entire agreement between you and us about FreeDoc.</p>
 
         <p className="src">
           Questions? Email <a href="mailto:info@island.contact">info@island.contact</a>.

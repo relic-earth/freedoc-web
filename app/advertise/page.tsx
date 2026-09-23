@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
+import { SPONSOR_MONTHLY_PRICE } from '@/lib/payments';
 
 export const metadata: Metadata = {
   title: 'Sponsor a section of FreeDoc',
@@ -25,6 +26,7 @@ export default function Advertise() {
           {PACKAGES.map((p) => (
             <div key={p.t} className="pkg">
               <h3>{p.t}</h3>
+              <p className="pkg-price">${SPONSOR_MONTHLY_PRICE.toLocaleString()} / month</p>
               <p>{p.d}</p>
             </div>
           ))}
@@ -37,7 +39,10 @@ export default function Advertise() {
           <li>Health-related, trustworthy brands only. We review every sponsor.</li>
         </ul>
 
-        <h2>Get in touch</h2>
+        <h2>Pricing and payment</h2>
+        <p>Every section is ${SPONSOR_MONTHLY_PRICE.toLocaleString()} per month, billed monthly in advance, with no long-term contract. Pay by card through a Stripe invoice, or by wire or ACH through a Mercury invoice. Tell us your section and payment method below, and we will send the invoice within one business day. Your sponsorship goes live when the first invoice is paid.</p>
+
+        <h2>Book a section</h2>
         <LeadForm
           kind="sponsor"
           fields={[
@@ -45,11 +50,11 @@ export default function Advertise() {
             { name: 'email', label: 'Work email', type: 'email', required: true },
             { name: 'company', label: 'Company' },
             { name: 'topic', label: 'Section of interest', options: PACKAGES.map((p) => p.t) },
-            { name: 'budget', label: 'Monthly budget', options: ['Under $1,000', '$1,000–$5,000', '$5,000–$20,000', '$20,000+'] },
+            { name: 'budget', label: 'How would you like to pay?', options: ['Card (Stripe invoice)', 'Wire or ACH (Mercury invoice)'] },
             { name: 'note', label: 'Anything else?', textarea: true },
           ]}
-          button="Request sponsorship info"
-          done="Thanks! We’ll be in touch within two business days."
+          button="Book this section"
+          done="Thanks! Your invoice will arrive within one business day."
         />
       </div>
     </div>
