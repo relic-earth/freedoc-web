@@ -206,7 +206,10 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           <button className="go" type="submit">
             Check symptoms — free
           </button>
-          <p className="fine">No account. We don’t store your answers. Emergency? Call 911.</p>
+          <p className="fine">
+            By tapping the button, you agree to the <a href="/terms">Terms</a> and consent to sending what you type to our AI provider to get your answer, as described in our{' '}
+            <a href="/health-data">Health Data Policy</a>. FreeDoc is not medical advice. Emergency? Call 911.
+          </p>
         </form>
       )}
 
@@ -344,7 +347,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                 🖨️ Print for the visit
               </button>
             </div>
-            <p className="disclose">Shared links show only the result color. Your symptoms stay private.</p>
+            <p className="disclose">Shared links show only the result color. Your symptoms are never included.</p>
           </div>
 
           <div className="grid2">
@@ -362,7 +365,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             )}
             {verdict.possibleCauses.length > 0 && (
               <div className="card">
-                <p className="step-label">Possible causes</p>
+                <p className="step-label">Things a doctor may check for</p>
                 <ul className="list">
                   {verdict.possibleCauses.map((c) => (
                     <li key={c.name}>
@@ -370,7 +373,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                     </li>
                   ))}
                 </ul>
-                <p className="disclose">These are possibilities, not a diagnosis.</p>
+                <p className="disclose">These are common possibilities a clinician may consider. They are not a diagnosis.</p>
               </div>
             )}
             {verdict.askDoctor.length > 0 && (

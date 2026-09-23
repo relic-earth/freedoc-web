@@ -1,0 +1,4 @@
+/* Consent notice links and legal-page boxes: keep links legible on the dark HUD theme. */
+.fine a { color: var(--cyan-2); font-weight: 800; text-underline-offset: 3px; }
+.box p { font-size: 20px; font-weight: 600; color: var(--ink); }
+.article .list strong { color: #fff; }

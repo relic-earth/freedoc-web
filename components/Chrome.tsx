@@ -16,12 +16,12 @@ const CHANNELS = [
   { href: '/symptoms', name: 'symptom-guides', topic: 'Warning signs that mean ER, urgent care, or home care.' },
   { href: '/plus', name: 'freedoc-plus', topic: 'Health history for the whole family, ready for the doctor.' },
   { href: '/advertise', name: 'sponsors', topic: 'Reach people at the exact moment they choose where to get care.' },
-  { href: '/privacy', name: 'privacy', topic: 'FreeDoc is built to know as little about you as possible.' },
+  { href: '/privacy', name: 'privacy', topic: 'Privacy, health data, and terms. FreeDoc is built to know as little about you as possible.' },
 ];
 
 function useChannel() {
   const path = usePathname() || '/';
-  const hit = [...CHANNELS].reverse().find((c) => (c.href === '/' ? path === '/' || path.startsWith('/v') : path.startsWith(c.href)));
+  const hit = [...CHANNELS].reverse().find((c) => (c.href === '/' ? path === '/' || path.startsWith('/v') : c.href === '/privacy' ? /^\/(privacy|health-data|terms)/.test(path) : path.startsWith(c.href)));
   return hit || CHANNELS[0];
 }
 
@@ -123,7 +123,9 @@ export function Footer() {
             <Link href="/symptoms">Symptom guides</Link>
             <Link href="/plus">FreeDoc Plus</Link>
             <Link href="/advertise">Sponsor a section</Link>
-            <Link href="/privacy">Privacy</Link>
+            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/health-data">Health Data Policy</Link>
+            <Link href="/terms">Terms of Service</Link>
           </div>
         </div>
         <p className="foot-emerg">
