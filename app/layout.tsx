@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { JetBrains_Mono } from 'next/font/google';
 import { Header, Footer, Sidebar } from '@/components/Chrome';
 import './globals.css';
+import './logo.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://freedoc.live'),
