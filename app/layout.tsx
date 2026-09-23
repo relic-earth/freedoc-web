@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
-import { Header, Footer } from '@/components/Chrome';
+import { JetBrains_Mono } from 'next/font/google';
+import { Header, Footer, Sidebar } from '@/components/Chrome';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -18,15 +19,23 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', images: ['/api/og'] },
 };
 
-export const viewport: Viewport = { themeColor: '#fbfaf7', width: 'device-width', initialScale: 1 };
+const mono = JetBrains_Mono({ subsets: ['latin'], weight: ['500', '700', '800'], variable: '--mono', display: 'swap' });
+
+export const viewport: Viewport = { themeColor: '#04070d', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={mono.variable}>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <div className="app">
+          <Sidebar />
+          <div className="pane">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </div>
+        <div className="scan" aria-hidden />
         <Analytics />
       </body>
     </html>

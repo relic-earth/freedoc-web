@@ -26,7 +26,7 @@ export default async function SharePage({ searchParams }: { searchParams: SP }) 
       <div className="wrap">
         {level ? (
           <>
-            <p className="kicker" style={{ fontSize: 18, fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#15803d' }}>
+            <p className="kicker">
               Someone shared their FreeDoc result
             </p>
             <h1>

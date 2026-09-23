@@ -2,20 +2,38 @@ import Link from 'next/link';
 import Triage from '@/components/Triage';
 import { LEVELS, type Level } from '@/lib/triage';
 import { SYMPTOMS } from '@/lib/symptoms';
+import { BotLine, Reactor } from '@/components/Chrome';
 
 export default function Home() {
   return (
     <>
       <section className="hero">
         <div className="wrap">
-          <h1>Should I go to the ER?</h1>
-          <p className="sub">Answer a few quick questions and get a clear answer in about 60 seconds. Free, private, no account.</p>
-          <div className="levels-strip" aria-label="Possible answers">
-            {(Object.keys(LEVELS) as Level[]).map((l) => (
-              <span key={l} className="lv-pill">
-                {LEVELS[l].emoji} {LEVELS[l].label}
-              </span>
-            ))}
+          <div className="day-div">
+            <span>Today</span>
+          </div>
+          <div className="hero-grid">
+            <div className="hero-msg">
+              <BotLine note="pinned to #triage" />
+              <h1>Should I go to the ER?</h1>
+              <p className="sub">Answer a few quick questions and get a clear answer in about 60 seconds. Free, private, no account.</p>
+              <div className="levels-strip" aria-label="Possible answers">
+                {(Object.keys(LEVELS) as Level[]).map((l) => (
+                  <span key={l} className="lv-pill" style={{ ['--lv' as any]: LEVELS[l].color }}>
+                    {LEVELS[l].emoji} {LEVELS[l].label}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="hero-hud" aria-hidden>
+              <Reactor />
+              <div className="readouts">
+                <p><span>STATUS</span> ONLINE</p>
+                <p><span>RESPONSE</span> ~60 SEC</p>
+                <p><span>COST</span> $0.00</p>
+                <p><span>ACCOUNT</span> NONE</p>
+              </div>
+            </div>
           </div>
           <Triage />
         </div>
@@ -51,7 +69,7 @@ export default function Home() {
           <h2>No vague “see a doctor.” A real answer.</h2>
           <div className="lvl-grid">
             {(Object.keys(LEVELS) as Level[]).map((l) => (
-              <div key={l} className="lvl" style={{ borderColor: LEVELS[l].color, background: LEVELS[l].bg }}>
+              <div key={l} className="lvl" style={{ ['--lv' as any]: LEVELS[l].color }}>
                 <div className="e">{LEVELS[l].emoji}</div>
                 <h3>{LEVELS[l].label}</h3>
                 <p>{LEVELS[l].blurb}</p>

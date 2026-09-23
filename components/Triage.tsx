@@ -4,6 +4,7 @@ import { track } from '@vercel/analytics';
 import { detectEmergency, type EmergencyKind } from '@/lib/emergency';
 import { LEVELS, WHO, medlineUrl, type Question, type Verdict, type Who } from '@/lib/triage';
 import { CARE, SPONSORS } from '@/lib/partners';
+import { BotLine, Reactor } from '@/components/Chrome';
 
 type Step = 'start' | 'loadingQ' | 'questions' | 'loadingV' | 'verdict' | 'emergency';
 
@@ -27,7 +28,10 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (step !== 'start' && topRef.current) window.scrollTo({ top: topRef.current.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' });
+    if (step !== 'start' && topRef.current) {
+      const bar = (document.querySelector('.topbar') as HTMLElement | null)?.offsetHeight ?? 96;
+      window.scrollTo({ top: topRef.current.getBoundingClientRect().top + window.scrollY - bar - 16, behavior: 'smooth' });
+    }
   }, [step]);
 
   function goEmergency(kind: EmergencyKind) {
@@ -162,9 +166,13 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
 
   // ---------- RENDER ----------
   return (
-    <div ref={topRef} className="triage">
+    <div ref={topRef} className="triage" id="check">
       {step === 'start' && (
         <form onSubmit={start} className="card start-card">
+          <p className="composer-h">
+            <span className="hud-mono">MESSAGE #triage</span>
+            <span className="hud-mono dim">ENCRYPTED IN TRANSIT · NOT STORED</span>
+          </p>
           <p className="step-label">Who is sick?</p>
           <div className="who-row" role="radiogroup" aria-label="Who is sick">
             {(Object.keys(WHO) as Who[]).map((w) => (
@@ -204,13 +212,17 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
 
       {(step === 'loadingQ' || step === 'loadingV') && (
         <div className="card loading" aria-live="polite">
-          <div className="pulse" />
+          <BotLine note="is typing…" />
+          <div className="load-reactor">
+            <Reactor />
+          </div>
           <p className="big">{step === 'loadingQ' ? 'Reading your symptoms…' : 'Checking how urgent this is…'}</p>
         </div>
       )}
 
       {step === 'questions' && (
         <div className="card">
+          <BotLine />
           <p className="step-label">A few quick questions</p>
           <p className="lede">Tap the answers that fit. This is what a nurse would ask.</p>
           {questions.map((q, i) => (
@@ -243,6 +255,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
 
       {step === 'emergency' && (
         <div className="card emergency">
+          <p className="hud-mono em-alert">⚠ PRIORITY ALERT</p>
           {emergency === 'crisis' ? (
             <>
               <p className="em-title">You don’t have to go through this alone.</p>
@@ -268,7 +281,8 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
       {step === 'verdict' && verdict && (
         <div className="verdict-wrap">
           <div className="verdict" style={{ ['--lv' as any]: LEVELS[verdict.level].color, ['--lvbg' as any]: LEVELS[verdict.level].bg }}>
-            <p className="v-kicker">FreeDoc says</p>
+            <BotLine />
+            <p className="v-kicker">Triage result</p>
             <p className="v-level">
               <span aria-hidden>{LEVELS[verdict.level].emoji}</span> {LEVELS[verdict.level].label}
             </p>
