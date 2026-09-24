@@ -33,9 +33,9 @@ export default function Insurance() {
         <h1>Do you qualify for free health insurance?</h1>
         <p className="sub">Three questions, about 30 seconds. We show exactly what you qualify for and take you straight to the right application.</p>
         <div className="levels-strip">
-          <span className="lv-pill" style={{ ['--lv' as string]: '#22c55e' }}>Medicaid · often $0</span>
-          <span className="lv-pill" style={{ ['--lv' as string]: '#38e1ff' }}>CHIP for kids</span>
-          <span className="lv-pill" style={{ ['--lv' as string]: '#ffc247' }}>Marketplace discounts</span>
+          <span className="lv-pill" style={{ ['--lv' as string]: '#15803d' }}>Medicaid · often $0</span>
+          <span className="lv-pill" style={{ ['--lv' as string]: '#0b5cad' }}>CHIP for kids</span>
+          <span className="lv-pill" style={{ ['--lv' as string]: '#b45309' }}>Marketplace discounts</span>
         </div>
       </section>
 

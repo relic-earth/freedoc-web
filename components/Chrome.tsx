@@ -48,7 +48,7 @@ export function Sidebar() {
       <div className="side-ws">
         <Logo />
         <p className="side-status">
-          <span className="dot" aria-hidden /> Triage systems online
+          <span className="dot" aria-hidden /> Free · Private · No account
         </p>
       </div>
       <nav className="side-nav">
@@ -71,8 +71,8 @@ export function Sidebar() {
         </a>
       </nav>
       <div className="side-foot">
-        <p className="hud-mono">SYS.TRIAGE // v2.0</p>
-        <p className="hud-mono">COST $0 · ACCOUNT NONE</p>
+        <p className="hud-mono">Not medical advice</p>
+        <p className="hud-mono">Emergency? Call 911</p>
       </div>
     </aside>
   );

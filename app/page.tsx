@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Triage from '@/components/Triage';
 import { LEVELS, type Level } from '@/lib/triage';
 import { SYMPTOMS } from '@/lib/symptoms';
-import { BotLine, Reactor } from '@/components/Chrome';
+import { BotLine } from '@/components/Chrome';
 
 export default function Home() {
   return (
@@ -25,13 +25,15 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="hero-hud" aria-hidden>
-              <Reactor />
-              <div className="readouts">
-                <p><span>STATUS</span> ONLINE</p>
-                <p><span>RESPONSE</span> ~60 SEC</p>
-                <p><span>COST</span> $0.00</p>
-                <p><span>ACCOUNT</span> NONE</p>
+            <div className="hero-hud">
+              <div className="trust-card">
+                <h2>Why people use FreeDoc</h2>
+                <ul>
+                  <li><b className="tk" aria-hidden>✓</b><div>Free for everyone<span>No insurance or account needed</span></div></li>
+                  <li><b className="tk" aria-hidden>✓</b><div>Private by design<span>FreeDoc does not save your chats</span></div></li>
+                  <li><b className="tk" aria-hidden>✓</b><div>Safety first<span>Emergencies go straight to 911</span></div></li>
+                  <li><b className="tk" aria-hidden>✓</b><div>Clear next step<span>Home, doctor, urgent care, or ER</span></div></li>
+                </ul>
               </div>
             </div>
           </div>

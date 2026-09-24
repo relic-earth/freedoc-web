@@ -1,9 +1,9 @@
-/* Consent notice links and legal-page boxes: keep links legible on the dark HUD theme. */
-.fine a { color: var(--cyan-2); font-weight: 800; text-underline-offset: 3px; }
-.box p { font-size: 20px; font-weight: 600; color: var(--ink); }
-.article .list strong { color: #fff; }
-.plus-note { font-size: 19px; font-weight: 600; color: var(--ink-2); margin: 0 0 16px; }
-.plus-note strong { color: var(--gold); }
+/* Consent notice links and legal-page boxes. */
+.fine a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
+.box p { font-size: 19px; font-weight: 500; color: var(--ink); }
+.article .list strong { color: var(--ink); }
+.plus-note { font-size: 18px; font-weight: 500; color: var(--ink-2); margin: 0 0 16px; }
+.plus-note strong { color: var(--brand-2); }
 .go.pay { margin-top: 10px; }
 .price .fine { text-align: left; }
-.pkg-price { font-family: var(--mono-f); font-size: 20px !important; font-weight: 800 !important; color: var(--gold) !important; letter-spacing: 0.04em; }
+.pkg-price { font-size: 19px !important; font-weight: 800 !important; color: var(--brand-2) !important; }

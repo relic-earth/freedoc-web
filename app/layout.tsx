@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const mono = JetBrains_Mono({ subsets: ['latin'], weight: ['500', '700', '800'], variable: '--mono', display: 'swap' });
 
-export const viewport: Viewport = { themeColor: '#04070d', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#ffffff', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
