@@ -36,6 +36,11 @@ export default function Home() {
             </div>
           </div>
           <Triage />
+          <Link className="ins-teaser" href="/insurance">
+            <span className="pt-badge">No insurance?</span>
+            <span className="pt-line">See if you qualify for free health insurance, like Medicaid or CHIP. It takes about 30 seconds.</span>
+            <span className="pt-cta">Check now →</span>
+          </Link>
         </div>
       </section>
 

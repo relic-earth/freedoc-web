@@ -5,6 +5,7 @@ import { Header, Footer, Sidebar } from '@/components/Chrome';
 import './globals.css';
 import './logo.css';
 import './legal.css';
+import './insurance.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://freedoc.live'),

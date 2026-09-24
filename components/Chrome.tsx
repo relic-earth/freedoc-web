@@ -13,6 +13,7 @@ export function Logo() {
 
 const CHANNELS = [
   { href: '/', name: 'triage', topic: 'Should I go to the ER? A clear answer in about 60 seconds.' },
+  { href: '/insurance', name: 'free-insurance', topic: 'See if you qualify for free health insurance in about 30 seconds.' },
   { href: '/symptoms', name: 'symptom-guides', topic: 'Warning signs that mean ER, urgent care, or home care.' },
   { href: '/plus', name: 'freedoc-plus', topic: 'Health history for the whole family, ready for the doctor.' },
   { href: '/advertise', name: 'sponsors', topic: 'Reach people at the exact moment they choose where to get care.' },
@@ -120,6 +121,7 @@ export function Footer() {
             <p className="foot-note">Free AI triage that helps you decide where to go for care. It is not a doctor and does not diagnose.</p>
           </div>
           <div className="foot-links">
+            <Link href="/insurance">Free health insurance</Link>
             <Link href="/symptoms">Symptom guides</Link>
             <Link href="/plus">FreeDoc Plus</Link>
             <Link href="/advertise">Sponsor a section</Link>
