@@ -65,7 +65,7 @@ export default function Terms() {
         <p>We may update FreeDoc or these terms at any time. When we make important changes, we will update the date at the top of this page. Continuing to use FreeDoc after a change means you accept the updated terms. We may suspend or end access to FreeDoc at any time.</p>
 
         <h2>12. General</h2>
-        <p>These terms are governed by the laws of the United States and the state in which Island Global Company is organized, without regard to conflict-of-law rules. If any part of these terms is found unenforceable, the rest stays in effect. These terms, together with our privacy policies, are the entire agreement between you and us about FreeDoc.</p>
+        <p>These terms are governed by the laws of the United States and the State of Delaware, without regard to conflict-of-law rules. If any part of these terms is found unenforceable, the rest stays in effect. These terms, together with our privacy policies, are the entire agreement between you and us about FreeDoc.</p>
 
         <p className="src">
           Questions? Email <a href="mailto:info@island.contact">info@island.contact</a>.
