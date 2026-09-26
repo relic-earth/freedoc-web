@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Terms of Service | FreeDoc',
   description: 'The terms for using FreeDoc, a free AI symptom-triage tool that is not medical care.',
-  alternates: { canonical: 'https://freedoc.live/terms' },
+  alternates: { canonical: '/terms' },
 };
 
 const UPDATED = 'September 26, 2026';
@@ -38,10 +38,10 @@ export default function Terms() {
         <h2>5. Links, referrals, and sponsors</h2>
         <p>FreeDoc may link to third-party care options, such as telehealth services, urgent care finders, and pharmacies, and may show sponsored content. We do not provide, control, or endorse those services, and you use them under their own terms. We may earn a fee when you use some links. Fees and sponsorships never change the care level FreeDoc shows you, and sponsors are never chosen from your symptoms, answers, or results.</p>
 
-        <h2>5b. Health insurance information</h2>
+        <h2>5a. Health insurance information</h2>
         <p>The coverage finder gives a rough estimate based on general program rules and the numbers you enter. It is not a determination of eligibility, and only your state Medicaid agency, CHIP program, Medicare, or the health insurance marketplace can decide eligibility. FreeDoc is not a government agency, an insurance company, or a licensed insurance agent or broker. FreeDoc does not sell insurance, is not affiliated with Medicaid, CHIP, Medicare, CMS, or HealthCare.gov, and does not recommend any plan. Third-party plans linked from FreeDoc, such as short-term or discount plans, may not be ACA-compliant health insurance and may not be available where you live. Information on FreeDoc is not insurance, tax, or legal advice.</p>
 
-        <h2>5a. FreeDoc Plus and sponsorships</h2>
+        <h2>5b. FreeDoc Plus and sponsorships</h2>
         <p>FreeDoc Plus is in development and is not currently for sale. Joining the waitlist is free and does not commit you to buy anything. Before Plus launches, we will publish its features, price, renewal terms, and how to cancel. Anyone who paid for Plus before it was available can email <a href="mailto:info@island.contact?subject=Cancel%20FreeDoc%20Plus">info@island.contact</a> to cancel and receive a full refund. The free symptom check does not require a subscription.</p>
         <p>Page sponsorships are billed monthly in advance by invoice, payable by card through Stripe or by wire or ACH through Mercury. Sponsorships can be canceled before the next billing period. Sponsored content is labeled, is reviewed before it runs, and never changes the care level FreeDoc shows.</p>
 

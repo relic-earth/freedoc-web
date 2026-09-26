@@ -5,6 +5,7 @@ import { SPONSOR_MONTHLY_PRICE } from '@/lib/payments';
 export const metadata: Metadata = {
   title: 'Sponsor a section of FreeDoc',
   description: 'Sponsor a FreeDoc page. Every visitor sees the same sponsor, with no personal or health-based targeting.',
+  alternates: { canonical: '/advertise' },
 };
 
 const PACKAGES = [

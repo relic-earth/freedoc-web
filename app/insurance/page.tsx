@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Free health insurance: see what you may qualify for | FreeDoc',
   description: 'Answer three questions for an estimate of whether you may qualify for Medicaid, CHIP, or help paying for a marketplace plan, with links to official applications. Estimates only.',
   alternates: { canonical: '/insurance' },
-  openGraph: { title: 'Could you qualify for free health insurance?', description: 'Three questions and links to official applications. Estimates only.', url: 'https://freedoc.live/insurance' },
+  openGraph: { title: 'Could you qualify for free health insurance?', description: 'Three questions and links to official applications. Estimates only.', url: '/insurance' },
 };
 
 const FAQ = [

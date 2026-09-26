@@ -1,8 +1,8 @@
 import type { Level } from './triage';
 
 // Referral slots shown at the verdict. When an affiliate/referral deal is signed,
-// swap `url` for the tracked partner link — every click is already counted
-// in Vercel Analytics as the `care_click` event.
+// swap `url` for the tracked partner link — clicks are counted in Vercel Analytics
+// as a bare `care_click` event with no properties.
 export interface CareLink {
   id: string;
   title: string;

@@ -6,7 +6,7 @@ import { WHO, type Who } from '@/lib/triage';
 export const metadata: Metadata = {
   title: 'Symptom guides: when to go to the ER, urgent care, or stay home | FreeDoc',
   description: 'Plain-English guides to common symptoms, with the warning signs that mean ER, urgent care, or home care.',
-  alternates: { canonical: 'https://freedoc.live/symptoms' },
+  alternates: { canonical: '/symptoms' },
 };
 
 const GROUPS: { who: Who; title: string }[] = [

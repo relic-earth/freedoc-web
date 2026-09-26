@@ -96,10 +96,10 @@ export default function CoverageFinder() {
               <input className="ins-in" inputMode="numeric" placeholder="0" value={income} onChange={(e) => setIncome(e.target.value)} aria-label="Household income" />
             </div>
             <div className="opts">
-              <button type="button" className={`opt ${per === 'year' ? 'on' : ''}`} onClick={() => setPer('year')}>
+              <button type="button" className={`opt ${per === 'year' ? 'on' : ''}`} aria-pressed={per === 'year'} onClick={() => setPer('year')}>
                 Per year
               </button>
-              <button type="button" className={`opt ${per === 'month' ? 'on' : ''}`} onClick={() => setPer('month')}>
+              <button type="button" className={`opt ${per === 'month' ? 'on' : ''}`} aria-pressed={per === 'month'} onClick={() => setPer('month')}>
                 Per month
               </button>
             </div>

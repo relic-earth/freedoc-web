@@ -5,6 +5,7 @@ import LeadForm from '@/components/LeadForm';
 export const metadata: Metadata = {
   title: 'FreeDoc Plus waitlist: family health history tools',
   description: 'FreeDoc Plus is in development. Join the free waitlist for family profiles, saved history, and visit summaries. The FreeDoc symptom check stays free.',
+  alternates: { canonical: '/plus' },
 };
 
 type SP = Promise<{ welcome?: string }>;

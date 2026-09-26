@@ -17,7 +17,7 @@ const CHANNELS = [
   { href: '/symptoms', name: 'symptom-guides', topic: 'Warning signs that mean ER, urgent care, or home care.' },
   { href: '/plus', name: 'freedoc-plus', topic: 'Family health history tools, coming soon. Join the waitlist.' },
   { href: '/advertise', name: 'sponsors', topic: 'Sponsor a page, with no personal or health-based targeting.' },
-  { href: '/privacy', name: 'privacy', topic: 'Privacy, health data, and terms. FreeDoc is built to know as little about you as possible.' },
+  { href: '/privacy', name: 'privacy', topic: 'Privacy, health data, and terms. FreeDoc is built to collect as little as possible.' },
 ];
 
 function useChannel() {
@@ -48,7 +48,7 @@ export function Sidebar() {
       <div className="side-ws">
         <Logo />
         <p className="side-status">
-          <span className="dot" aria-hidden /> Free · Private · No account
+          <span className="dot" aria-hidden /> Free · No account
         </p>
       </div>
       <nav className="side-nav">

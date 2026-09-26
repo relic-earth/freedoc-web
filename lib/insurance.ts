@@ -79,8 +79,8 @@ export const STATES: State[] = [
 
 export const LINKS = {
   healthcareGov: 'https://www.healthcare.gov/screener/',
-  localHelp: 'https://localhelp.healthcare.gov/',
-  medicaidState: 'https://www.medicaid.gov/about-us/beneficiary-resources/index.html',
+  localHelp: 'https://www.healthcare.gov/find-local-help/',
+  medicaidState: 'https://www.healthcare.gov/medicaid-chip/getting-medicaid-chip/',
   chip: 'https://www.insurekidsnow.gov/coverage',
   healthCenter: 'https://findahealthcenter.hrsa.gov/',
   medicare: 'https://www.medicare.gov/basics/get-started-with-medicare',
@@ -116,7 +116,7 @@ export function screen(a: Answers): { pct: number; line: number; results: Result
   const pct = Math.round((a.income / line) * 100);
   const mkt = st.ex ?? { name: 'HealthCare.gov', url: LINKS.healthcareGov };
   const applyAll = { label: `Apply free at ${mkt.name}`, url: mkt.url };
-  const medicaidDirect = { label: `Apply with ${st.name} Medicaid`, url: LINKS.medicaidState };
+  const medicaidDirect = { label: `Find ${st.name}’s Medicaid office`, url: LINKS.medicaidState };
   const out: Result[] = [];
 
   if (a.kids) {
@@ -124,6 +124,8 @@ export function screen(a: Answers): { pct: number; line: number; results: Result
       out.push({ tone: 'free', who: 'Your kids', title: 'Your kids may qualify for free coverage.', body: `At this income, children in ${st.name} often qualify for Medicaid or CHIP, which typically cover doctor visits, checkups, shots, dental, and prescriptions at low or no cost. You can apply any day of the year.`, cta: [{ label: 'Apply for kids’ coverage (CHIP)', url: LINKS.chip }, applyAll], track: 'kids_free' });
     else if (pct <= 300)
       out.push({ tone: 'low', who: 'Your kids', title: 'Your kids may qualify for free or low-cost CHIP.', body: `Many states cover children well above this income, often for a small monthly fee. ${st.name}’s limit decides it, so apply and let them check. You can apply any day of the year.`, cta: [{ label: 'Check kids’ coverage (CHIP)', url: LINKS.chip }, applyAll], track: 'kids_low' });
+    else
+      out.push({ tone: 'full', who: 'Your kids', title: 'Your kids can be covered through a marketplace plan.', body: `At this income, children usually get coverage through a parent’s job-based plan or a marketplace plan. A few states cover children at higher incomes, so ${st.name}’s rules decide. Compare plans during Open Enrollment, or sooner after a life change such as a move or a new baby.`, cta: [{ label: `Compare plans at ${mkt.name}`, url: mkt.url }, { label: 'Check kids’ coverage (CHIP)', url: LINKS.chip }], track: 'kids_full' });
   }
 
   if (a.pregnant) {
@@ -139,7 +141,7 @@ export function screen(a: Answers): { pct: number; line: number; results: Result
 
   if (a.adults) {
     const limit = st.exp === 'full' ? 138 : st.exp === 'to100' ? 100 : 0;
-    if (pct <= limit) {
+    if (limit > 0 && pct <= limit) {
       out.push({ tone: 'free', who: 'Adults', title: 'You may qualify for free Medicaid.', body: `${st.name} generally covers adults with income up to about ${limit}% of the poverty line, and you are at about ${pct}%. Medicaid often costs $0 per month, with little to pay at the doctor. You can apply any day of the year. Some states also require work or community activities for some adults, and your state makes the final decision.${st.code === 'GA' ? ' Georgia’s program (Pathways) requires 80 hours a month of work, school, or volunteering.' : ''}`, cta: [applyAll, medicaidDirect], track: 'adult_medicaid' });
     } else if (pct < 100) {
       out.push({ tone: 'gap', who: 'Adults', title: 'You may be in the coverage gap, but you still have free options.', body: `${st.name} has not expanded Medicaid, so adults without kids at this income often do not qualify, and marketplace help starts at 100% of the poverty line. Still apply, since parents, people with disabilities, and others can qualify. Community health centers treat you on a sliding scale, often for $0 to $40 a visit, and many hospitals must offer free or reduced-cost care.`, cta: [applyAll, { label: 'Find a free or low-cost clinic', url: LINKS.healthCenter }, { label: 'Free hospital care (Hill-Burton)', url: LINKS.hillBurton }], track: 'adult_gap' });
@@ -149,6 +151,9 @@ export function screen(a: Answers): { pct: number; line: number; results: Result
       out.push({ tone: 'full', who: 'Adults', title: 'You can compare marketplace plans.', body: `Above 400% of the poverty line, you may not get a premium tax credit under current law. Compare marketplace plans during Open Enrollment (November 1 to January 15), or look at other options below if you need coverage now.`, cta: [{ label: `Compare plans at ${mkt.name}`, url: mkt.url }], track: 'adult_full' });
     }
   }
+
+  if (!out.length)
+    out.push({ tone: 'low', who: 'Your household', title: 'Check your options with the official screener.', body: `Your answers did not match a common program, but rules differ by state and by person. The official screener can check for Medicaid, CHIP, and help paying for a plan in ${st.name}.`, cta: [applyAll], track: 'fallback' });
 
   return { pct, line, results: out };
 }

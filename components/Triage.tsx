@@ -15,6 +15,28 @@ const EXAMPLES: Record<Who, string[]> = {
   someone: ['Fever and body aches', 'Deep cut on a finger', 'Bad headache that came on fast', 'Burn from a hot pan'],
 };
 
+// Clipboard with a fallback for browsers or contexts where the async API is unavailable.
+async function copyText(t: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(t);
+    return true;
+  } catch {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = t;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
 export default function Triage({ initialText = '', initialWho = 'me' as Who, autoFocus = false }) {
   const [who, setWho] = useState<Who>(initialWho);
   const [text, setText] = useState(initialText);
@@ -27,12 +49,37 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   const [copied, setCopied] = useState('');
   const topRef = useRef<HTMLDivElement>(null);
   const whatRef = useRef<HTMLTextAreaElement>(null);
+  const levelRef = useRef<HTMLParagraphElement>(null);
+  const emRef = useRef<HTMLParagraphElement>(null);
 
+  // Focus the box on load so visitors can type right away, and keep anything typed before hydration.
   useEffect(() => {
-    if (step !== 'start' && topRef.current) {
-      const bar = (document.querySelector('.topbar') as HTMLElement | null)?.offsetHeight ?? 96;
-      window.scrollTo({ top: topRef.current.getBoundingClientRect().top + window.scrollY - bar - 16, behavior: 'smooth' });
+    const el = whatRef.current;
+    if (!el) return;
+    if (el.value && !text) setText(el.value);
+    if (autoFocus && (document.activeElement === document.body || document.activeElement === null)) {
+      el.focus({ preventScroll: true });
+      const n = el.value.length;
+      el.setSelectionRange(n, n);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // On every step change after the first render: bring the card to the top and move focus to it.
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    if (step === 'start') whatRef.current?.focus({ preventScroll: true });
+    if (step === 'verdict') levelRef.current?.focus({ preventScroll: true });
+    if (step === 'emergency') emRef.current?.focus({ preventScroll: true });
+    const el = topRef.current;
+    if (!el) return;
+    const bar = (document.querySelector('.topbar') as HTMLElement | null)?.offsetHeight ?? 96;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - bar - 16), behavior: reduce ? 'auto' : 'smooth' });
   }, [step]);
 
   function goEmergency(kind: EmergencyKind) {
@@ -150,8 +197,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
     } catch {
       return;
     }
-    await navigator.clipboard.writeText(`${msg} ${shareUrl}`);
-    flash('link');
+    if (await copyText(`${msg} ${shareUrl}`)) flash('link');
   }
 
   function flash(what: string) {
@@ -160,9 +206,8 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   }
 
   async function copySummary() {
-    await navigator.clipboard.writeText(summary);
     track('summary_copy');
-    flash('summary');
+    if (await copyText(summary)) flash('summary');
   }
 
   // ---------- RENDER ----------
@@ -184,7 +229,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             autoFocus={autoFocus}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) start(e as any);
+              if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) start(e as any);
             }}
             placeholder={`e.g. ${EXAMPLES[who][0]}`}
           />
@@ -199,7 +244,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             ))}
           </div>
           <p className="step-label who-label">Who is it for?</p>
-          <div className="who-row compact" role="radiogroup" aria-label="Who is sick">
+          <div className="who-row compact" role="radiogroup" aria-label="Who is the symptom check for?">
             {(Object.keys(WHO) as Who[]).map((w) => (
               <button type="button" key={w} role="radio" aria-checked={who === w} className={`who ${who === w ? 'on' : ''}`} onClick={() => setWho(w)}>
                 <span className="who-emoji" aria-hidden>{WHO[w].emoji}</span>
@@ -266,7 +311,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           <p className="hud-mono em-alert">⚠ PRIORITY ALERT</p>
           {emergency === 'crisis' ? (
             <>
-              <p className="em-title">You don’t have to go through this alone.</p>
+              <p className="em-title" ref={emRef} tabIndex={-1}>You don’t have to go through this alone.</p>
               <p className="lede">You can talk to someone right now. It’s free and open 24/7.</p>
               <a className="em-btn" href="tel:988" onClick={() => track('crisis_call')}>Call 988</a>
               <a className="em-btn alt" href="sms:988">Text 988</a>
@@ -274,7 +319,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             </>
           ) : (
             <>
-              <p className="em-title">🔴 This could be an emergency.</p>
+              <p className="em-title" ref={emRef} tabIndex={-1}>🔴 This could be an emergency.</p>
               <p className="lede">Call 911 now. Don’t wait for an online answer.</p>
               <a className="em-btn" href="tel:911" onClick={() => track('emergency_call')}>Call 911</a>
               <a className="em-btn alt" href="tel:18002221222">Poison Control: 1‑800‑222‑1222</a>
@@ -291,7 +336,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           <div className="verdict" style={{ ['--lv' as any]: LEVELS[verdict.level].color, ['--lvbg' as any]: LEVELS[verdict.level].bg }}>
             <BotLine />
             <p className="v-kicker">Suggested care level · AI-generated</p>
-            <p className="v-level">
+            <p className="v-level" ref={levelRef} tabIndex={-1}>
               <span aria-hidden>{LEVELS[verdict.level].emoji}</span> {LEVELS[verdict.level].label}
             </p>
             {verdict.headline && <p className="v-head">{verdict.headline}</p>}
@@ -310,7 +355,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                   target={c.kind === 'call' ? undefined : '_blank'}
                   rel="noopener sponsored"
                   className={`care-btn ${c.kind}`}
-                  onClick={() => track('care_click', { id: c.id })}
+                  onClick={() => track('care_click')}
                 >
                   <span className="care-title">{c.title} →</span>
                   <span className="care-sub">{c.sub}</span>
@@ -325,23 +370,23 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             <p className="step-label">Share &amp; send</p>
             <div className="act-grid">
               <button className="act primary" onClick={share}>
-                {copied === 'link' ? '✓ Link copied' : '📣 Share my result'}
+                {copied === 'link' ? '✓ Link copied' : <><span className="act-ic" aria-hidden>📣</span> Share my result</>}
               </button>
               <a className="act" href={`/api/og?l=${verdict.level}&download=1`} download="freedoc-result.png" onClick={() => track('card_download')}>
-                🖼️ Save result card
+                <span className="act-ic" aria-hidden>🖼️</span> Save result card
               </a>
               <a className="act" href={`sms:?&body=${encodeURIComponent(summary)}`} onClick={() => track('send_family')}>
-                💬 Text to family
+                <span className="act-ic" aria-hidden>💬</span> Text to family
               </a>
               <a
                 className="act"
                 href={`mailto:?subject=${encodeURIComponent('Symptom summary from FreeDoc')}&body=${encodeURIComponent(summary)}`}
                 onClick={() => track('send_doctor')}
               >
-                ✉️ Email to my doctor
+                <span className="act-ic" aria-hidden>✉️</span> Email to my doctor
               </a>
               <button className="act" onClick={copySummary}>
-                {copied === 'summary' ? '✓ Summary copied' : '📋 Copy summary'}
+                {copied === 'summary' ? '✓ Summary copied' : <><span className="act-ic" aria-hidden>📋</span> Copy summary</>}
               </button>
               <button
                 className="act"
@@ -350,7 +395,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                   window.print();
                 }}
               >
-                🖨️ Print for the visit
+                <span className="act-ic" aria-hidden>🖨️</span> Print for the visit
               </button>
             </div>
             <p className="disclose">Shared links show only the suggested care level. Your symptoms are never included.</p>

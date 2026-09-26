@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { SYMPTOMS } from '@/lib/symptoms';
+import { SITE } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://freedoc.live';
+  const base = SITE;
   return [
     { url: base, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/insurance`, changeFrequency: 'monthly', priority: 0.95 },

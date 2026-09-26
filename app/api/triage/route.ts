@@ -52,6 +52,16 @@ function clean(s: unknown, max = 400) {
   return String(s ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 }
 
+// Safety net for AI output only (never for what the user typed): results never name a specific
+// medicine or brand, even if the model slips.
+function scrub(s: unknown, max = 400) {
+  return clean(s, max + 60)
+    .replace(/\b(an? |your |the )?epi-?pens?\b/gi, (_m: string, d?: string) => `${!d || /^an? $/i.test(d) ? 'an ' : d}epinephrine auto-injector`)
+    .replace(/\b(an? )?(some )?(acetaminophen|paracetamol|tylenol|ibuprofen|advil|motrin|naproxen|aleve|aspirin|bayer|excedrin|benadryl|diphenhydramine|claritin|loratadine|zyrtec|cetirizine|allegra|fexofenadine|pepto(-bismol)?|imodium|loperamide|tums|mylanta|prilosec|omeprazole|pepcid|famotidine|sudafed|pseudoephedrine|mucinex|guaifenesin|dayquil|nyquil|robitussin|dextromethorphan|neosporin|hydrocortisone|cortisone|amoxicillin|augmentin|penicillin|azithromycin|z-?pack|cephalexin|keflex|ciprofloxacin|doxycycline|prednisone|zofran|ondansetron|miralax|dramamine|midol)\b/gi, 'an over-the-counter medicine (ask a pharmacist first)')
+    .replace(/(an over-the-counter medicine \(ask a pharmacist first\))(,? (or|and|,) an over-the-counter medicine \(ask a pharmacist first\))+/gi, '$1')
+    .slice(0, max);
+}
+
 export async function POST(req: Request) {
   let body: any;
   try {
@@ -109,16 +119,16 @@ Return JSON with exactly these keys:
  "topic":"a 1–3 word general health topic to look up, e.g. \\"fever\\""}`;
     const qa = answers.map((a) => `- ${a.q} → ${a.a}`).join('\n');
     const out = await askJSON(sys, `Patient: ${patient}.\nWhat they said: "${text}"\nFollow-up answers:\n${qa || '(none)'}`);
-    const arr = (x: any, n: number, m = 200) => (Array.isArray(x) ? x : []).slice(0, n).map((s: any) => clean(s, m)).filter(Boolean);
+    const arr = (x: any, n: number, m = 200) => (Array.isArray(x) ? x : []).slice(0, n).map((s: any) => scrub(s, m)).filter(Boolean);
     const verdict: Verdict = {
       level: isLevel(out.level) ? out.level : 'urgent',
-      headline: clean(out.headline, 80),
-      summary: clean(out.summary, 600),
+      headline: scrub(out.headline, 80),
+      summary: scrub(out.summary, 600),
       doNow: arr(out.doNow, 5),
       watchFor: arr(out.watchFor, 5),
       possibleCauses: (Array.isArray(out.possibleCauses) ? out.possibleCauses : [])
         .slice(0, 3)
-        .map((c: any) => ({ name: clean(c?.name, 60), note: clean(c?.note, 200) }))
+        .map((c: any) => ({ name: scrub(c?.name, 60), note: scrub(c?.note, 200) }))
         .filter((c: any) => c.name),
       askDoctor: arr(out.askDoctor, 3),
       topic: clean(out.topic, 40) || 'symptoms',

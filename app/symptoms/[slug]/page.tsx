@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: P }): Promise<Metad
   return {
     title: `${s.question} | FreeDoc`,
     description: `${s.intro} General information, not medical advice.`,
-    alternates: { canonical: `https://freedoc.live/symptoms/${s.slug}` },
+    alternates: { canonical: `/symptoms/${s.slug}` },
     openGraph: { title: s.question, description: s.intro, images: [{ url: '/api/og', width: 1200, height: 630 }] },
   };
 }

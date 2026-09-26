@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Analytics } from '@vercel/analytics/next';
 import { JetBrains_Mono } from 'next/font/google';
 import { Header, Footer, Sidebar } from '@/components/Chrome';
+import AnalyticsClean from '@/components/AnalyticsClean';
+import { SITE } from '@/lib/site';
 import './globals.css';
 import './logo.css';
 import './legal.css';
@@ -9,13 +10,13 @@ import './insurance.css';
 import './depth.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://freedoc.live'),
+  metadataBase: new URL(SITE),
   title: 'FreeDoc — Should I go to the ER? Free symptom check',
   description: 'A free AI symptom checker. Answer a few quick questions and get a suggested next step: home care, a doctor visit, urgent care today, or the ER. Not medical advice.',
   openGraph: {
     title: 'FreeDoc — Should I go to the ER?',
     description: 'A free AI symptom checker with a suggested next step in about 60 seconds. Not medical advice.',
-    url: 'https://freedoc.live',
+    url: '/',
     siteName: 'FreeDoc',
     images: [{ url: '/api/og', width: 1200, height: 630 }],
     type: 'website',
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
         <div className="scan" aria-hidden />
-        <Analytics />
+        <AnalyticsClean />
       </body>
     </html>
   );

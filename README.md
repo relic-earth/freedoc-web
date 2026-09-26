@@ -1,6 +1,6 @@
 # FreeDoc (freedoc.live)
 
-Free AI symptom triage: who's sick → quick nurse-style questions → one of four answers (home / doctor in 1–2 days / urgent care today / ER now).
+Free AI symptom triage: who's sick → quick follow-up questions → one of four answers (home / doctor in 1–2 days / urgent care today / ER now).
 
 - Next.js 16 app router, deployed to Vercel project `freedoc-web` (team islandglobalco).
 - `OPENAI_API_KEY` (optional `OPENAI_MODEL`) powers `/api/triage`.

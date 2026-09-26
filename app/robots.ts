@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { SITE } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
-  return { rules: [{ userAgent: '*', allow: '/', disallow: ['/api/triage', '/api/lead'] }], sitemap: 'https://freedoc.live/sitemap.xml' };
+  return { rules: [{ userAgent: '*', allow: '/', disallow: ['/api/triage', '/api/lead'] }], sitemap: `${SITE}/sitemap.xml`, host: SITE };
 }
