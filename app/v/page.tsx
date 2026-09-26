@@ -30,7 +30,8 @@ export default async function SharePage({ searchParams }: { searchParams: SP }) 
               Someone shared a FreeDoc suggestion
             </p>
             <h1>
-              {LEVELS[level].emoji} {LEVELS[level].label}
+              <span className="lv-dot" style={{ background: LEVELS[level].color }} aria-hidden />
+              {LEVELS[level].label}
             </h1>
             <p className="sub">Not feeling well yourself? Get your own suggested next step in about 60 seconds. It’s free. FreeDoc is AI, not medical advice.</p>
           </>

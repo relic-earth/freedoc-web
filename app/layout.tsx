@@ -32,11 +32,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={mono.variable}>
       <body>
+        <a href="#main" className="skip">Skip to content</a>
         <div className="app">
           <Sidebar />
           <div className="pane">
             <Header />
-            <main>{children}</main>
+            <main id="main" tabIndex={-1}>{children}</main>
             <Footer />
           </div>
         </div>
