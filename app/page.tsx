@@ -2,32 +2,39 @@ import Link from 'next/link';
 import Triage from '@/components/Triage';
 import { LEVELS, type Level } from '@/lib/triage';
 import { SYMPTOMS } from '@/lib/symptoms';
-import { BotLine } from '@/components/Chrome';
 
 export default function Home() {
   return (
     <>
-      <section className="hero">
+      <section className="hero hero-ask">
         <div className="wrap">
-          <div className="day-div">
-            <span>Today</span>
-          </div>
-          <div className="hero-grid">
-            <div className="hero-msg">
-              <BotLine note="pinned to #triage" />
-              <h1>Should I go to the ER?</h1>
-              <p className="sub">Answer a few quick questions and get a suggested next step in about 60 seconds. Free, with no account.</p>
-              <p className="hero-legal">FreeDoc is an AI tool, not a doctor or nurse, and it does not diagnose. In an emergency, call 911.</p>
-              <div className="levels-strip" aria-label="Suggested care levels">
-                {(Object.keys(LEVELS) as Level[]).map((l) => (
-                  <span key={l} className="lv-pill" style={{ ['--lv' as any]: LEVELS[l].color }}>
-                    {LEVELS[l].emoji} {LEVELS[l].label}
-                  </span>
-                ))}
-              </div>
+          <p className="ask-kicker">Free AI symptom check · No account</p>
+          <h1>Should I go to the ER?</h1>
+          <p className="hero-legal">Type what’s going on and get a suggested next step in about 60 seconds. FreeDoc is an AI tool, not a doctor or nurse, and it does not diagnose. In an emergency, call 911.</p>
+          <Triage autoFocus />
+          <Link className="ins-teaser" href="/insurance">
+            <span className="pt-badge">No insurance?</span>
+            <span className="pt-line">See if you may qualify for free or low-cost health insurance, like Medicaid or CHIP. It takes about 30 seconds.</span>
+            <span className="pt-cta">Check now →</span>
+          </Link>
+        </div>
+      </section>
+      <section className="section why">
+        <div className="wrap why-grid">
+          <div>
+            <p className="kicker">Why FreeDoc</p>
+            <h2>Free, fast, and careful.</h2>
+            <p className="why-sub">No account, no insurance, and no saved symptom checks. Emergency words show 911 right away.</p>
+            <div className="levels-strip" aria-label="Suggested care levels">
+              {(Object.keys(LEVELS) as Level[]).map((l) => (
+                <span key={l} className="lv-pill" style={{ ['--lv' as any]: LEVELS[l].color }}>
+                  {LEVELS[l].emoji} {LEVELS[l].label}
+                </span>
+              ))}
             </div>
-            <div className="hero-hud">
-              <div className="scene">
+          </div>
+          <div className="hero-hud">
+            <div className="scene">
                 <div className="orb" aria-hidden>
                   <span className="orb-ring r1" />
                   <span className="orb-ring r2" />
@@ -54,16 +61,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
           </div>
-          <Triage />
-          <Link className="ins-teaser" href="/insurance">
-            <span className="pt-badge">No insurance?</span>
-            <span className="pt-line">See if you may qualify for free or low-cost health insurance, like Medicaid or CHIP. It takes about 30 seconds.</span>
-            <span className="pt-cta">Check now →</span>
-          </Link>
         </div>
       </section>
+
 
       <section className="section">
         <div className="wrap">
