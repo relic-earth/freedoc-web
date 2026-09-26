@@ -367,3 +367,26 @@ body::after {
   box-shadow: var(--hl), 0 1px 0 #c9d5e3, 0 8px 14px -10px rgba(11, 45, 90, 0.35);
 }
 .care-btn.partner:hover { background: var(--brand-soft); }
+
+/* ---------- question-first hero ---------- */
+.hero-ask { padding: 40px 0 28px; }
+.hero-ask .wrap { max-width: 1000px; }
+.ask-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(198, 211, 226, 0.8); border-radius: 999px; padding: 7px 16px; box-shadow: var(--hl), 0 6px 14px -10px rgba(10, 70, 140, 0.4); }
+.hero-ask h1 { font-size: clamp(46px, 6.2vw, 80px); max-width: none; margin-top: 18px; }
+.hero-ask .hero-legal { font-size: 19px; max-width: 60ch; margin-top: 12px; }
+.hero-ask .triage { margin-top: 26px; }
+.ask-label { display: block; font-size: clamp(28px, 3.4vw, 38px); font-weight: 900; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 14px; line-height: 1.1; }
+.hero-ask .what { font-size: clamp(24px, 2.6vw, 30px); font-weight: 600; min-height: 128px; padding: 22px 24px; border-radius: 18px; border: 2px solid var(--brand-line); background: #fff; }
+.hero-ask .what:focus { border-color: var(--brand); box-shadow: 0 0 0 5px rgba(47, 134, 232, 0.2), inset 0 2px 5px rgba(11, 26, 44, 0.05); }
+.who-label { margin-top: 4px; }
+.who-row.compact { grid-template-columns: repeat(4, auto); justify-content: start; gap: 10px; margin-bottom: 24px; }
+.who-row.compact .who { flex-direction: row; gap: 8px; padding: 10px 18px; border-radius: 999px; font-size: 18px; }
+.who-row.compact .who-emoji { font-size: 22px; }
+@media (max-width: 720px) {
+  .who-row.compact { grid-template-columns: repeat(2, 1fr); }
+  .hero-ask { padding: 22px 0 18px; }
+  .hero-ask .what { min-height: 110px; }
+}
+.why-grid { display: grid; grid-template-columns: 1fr 420px; gap: 40px; align-items: center; }
+.why-sub { font-size: 21px; font-weight: 600; color: var(--ink-2); margin: -8px 0 8px; max-width: 40ch; }
+@media (max-width: 960px) { .why-grid { grid-template-columns: 1fr; } }

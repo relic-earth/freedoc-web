@@ -26,6 +26,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   const [error, setError] = useState('');
   const [copied, setCopied] = useState('');
   const topRef = useRef<HTMLDivElement>(null);
+  const whatRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (step !== 'start' && topRef.current) {
@@ -173,20 +174,12 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             <span className="hud-mono">MESSAGE #triage</span>
             <span className="hud-mono dim">AI tool · Not a doctor or nurse</span>
           </p>
-          <p className="step-label">Who is sick?</p>
-          <div className="who-row" role="radiogroup" aria-label="Who is sick">
-            {(Object.keys(WHO) as Who[]).map((w) => (
-              <button type="button" key={w} role="radio" aria-checked={who === w} className={`who ${who === w ? 'on' : ''}`} onClick={() => setWho(w)}>
-                <span className="who-emoji" aria-hidden>{WHO[w].emoji}</span>
-                {WHO[w].label}
-              </button>
-            ))}
-          </div>
-          <label htmlFor="what" className="step-label">What’s wrong?</label>
+          <label htmlFor="what" className="ask-label">What’s going on?</label>
           <textarea
             id="what"
+            ref={whatRef}
             className="what"
-            rows={3}
+            rows={2}
             value={text}
             autoFocus={autoFocus}
             onChange={(e) => setText(e.target.value)}
@@ -197,8 +190,20 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           />
           <div className="examples">
             {EXAMPLES[who].map((ex) => (
-              <button type="button" key={ex} className="chip" onClick={() => setText(ex)}>
+              <button type="button" key={ex} className="chip" onClick={() => {
+                setText(ex);
+                whatRef.current?.focus();
+              }}>
                 {ex}
+              </button>
+            ))}
+          </div>
+          <p className="step-label who-label">Who is it for?</p>
+          <div className="who-row compact" role="radiogroup" aria-label="Who is sick">
+            {(Object.keys(WHO) as Who[]).map((w) => (
+              <button type="button" key={w} role="radio" aria-checked={who === w} className={`who ${who === w ? 'on' : ''}`} onClick={() => setWho(w)}>
+                <span className="who-emoji" aria-hidden>{WHO[w].emoji}</span>
+                {WHO[w].label}
               </button>
             ))}
           </div>
