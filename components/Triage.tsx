@@ -296,7 +296,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
 
           {/* Monetization 1: referral at the moment of need */}
           <div className="card care">
-            <p className="step-label">{verdict.level === 'er' ? 'Get help now' : 'Next step'}</p>
+            <p className="step-label">{verdict.level === 'er' ? 'Get help now' : 'Care options'}</p>
             <div className="care-grid">
               {CARE[verdict.level].map((c) => (
                 <a
@@ -348,7 +348,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                 🖨️ Print for the visit
               </button>
             </div>
-            <p className="disclose">Shared links show only the result color. Your symptoms are never included.</p>
+            <p className="disclose">Shared links show only the suggested care level. Your symptoms are never included.</p>
           </div>
 
           <div className="grid2">

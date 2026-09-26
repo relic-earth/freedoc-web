@@ -103,10 +103,10 @@ body::after {
 .day-div span { background: rgba(255, 255, 255, 0.85); box-shadow: var(--hl), 0 4px 10px -8px rgba(10, 70, 140, 0.4); }
 
 /* 3D scene */
-.scene { position: relative; height: 470px; perspective: 1400px; perspective-origin: 30% 20%; }
+.scene { position: relative; height: 500px; perspective: 1400px; perspective-origin: 30% 20%; }
 .stack {
   position: absolute;
-  inset: 70px 0 0 18px;
+  inset: 104px 0 0 10px;
   transform-style: preserve-3d;
   transform: rotateY(-16deg) rotateX(9deg) rotateZ(1deg);
   animation: floaty 7s ease-in-out infinite;
@@ -169,10 +169,10 @@ body::after {
 /* glowing diagnostic orb */
 .orb {
   position: absolute;
-  right: 6px;
+  right: -6px;
   top: 0;
-  width: 128px;
-  height: 128px;
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
   z-index: 3;
   background:
@@ -358,3 +358,12 @@ body::after {
 @media print {
   body::before, body::after { display: none; }
 }
+
+/* affiliate/partner links are never styled as the primary action */
+.care-btn.partner, .care-btn.partner:first-child {
+  background: linear-gradient(180deg, #ffffff, #f3f7fc);
+  color: var(--ink);
+  border-color: var(--brand-line);
+  box-shadow: var(--hl), 0 1px 0 #c9d5e3, 0 8px 14px -10px rgba(11, 45, 90, 0.35);
+}
+.care-btn.partner:hover { background: var(--brand-soft); }
