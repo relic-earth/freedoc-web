@@ -21,7 +21,7 @@ export default function Symptoms() {
     <div className="wrap">
       <div className="article" style={{ maxWidth: 1120 }}>
         <h1>Symptom guides</h1>
-        <p className="intro">Find the warning signs that mean ER, urgent care, or home care. Then get your own answer in 60 seconds.</p>
+        <p className="intro">General information about common warning signs for ER, urgent care, or home care. These guides are not medical advice. When in doubt, seek care.</p>
         {GROUPS.map((g) => (
           <div key={g.who}>
             <h2>

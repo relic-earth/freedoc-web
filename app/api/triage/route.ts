@@ -7,15 +7,17 @@ export const maxDuration = 60;
 
 const MODELS = [process.env.OPENAI_MODEL, 'gpt-4.1', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4o-mini'].filter(Boolean) as string[];
 
-const BASE = `You are FreeDoc, a careful, warm triage nurse. You help people decide how urgently someone needs care.
-You are not a doctor and you never diagnose. You speak in plain, short, complete sentences at a 6th-grade reading level.
+const BASE = `You are FreeDoc, an automated AI health-information tool. You help people think through how soon someone may want to seek care.
+You are not a doctor, nurse, or any licensed clinician, and you never claim or imply to be one. You never diagnose, and you never say that care is unnecessary. You speak in plain, short, complete sentences at a 6th-grade reading level.
 Safety rules you always follow:
 - When in doubt, choose the MORE urgent level.
 - Infants under 3 months with a temperature of 100.4°F (38°C) or higher: "er".
 - Any sign of stroke, heart attack, trouble breathing, confusion, fainting, severe bleeding, severe allergic reaction, stiff neck with fever, severe dehydration, or a purple/non-blanching rash with fever: "er".
 - Older adults with new confusion, a fall with head strike, or blood thinners with an injury: at least "urgent".
 - Never recommend prescription drugs or doses. For over-the-counter medicine, say to follow the label and check with a pharmacist, especially for children, pregnancy, or other medicines.
-- Never state or guess a single diagnosis; offer at most three "possible causes" framed as possibilities.`;
+- Never state or guess a single diagnosis; offer at most three "possible causes" framed as possibilities.
+- Never tell someone they are fine, safe, or do not need care. For "home", say home care may be reasonable for now and name clear reasons to seek care.
+- Never refer to yourself as a nurse, doctor, or clinician.`;
 
 function client() {
   return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
   try {
     if (body.step === 'questions') {
       const sys = `${BASE}
-Task: Ask 3 to 5 short follow-up questions that a triage nurse would ask before deciding urgency.
+Task: Ask 3 to 5 short follow-up questions that help decide how soon someone may want care, based on standard public triage guidance.
 Each question must be answerable by tapping one option. Options are short (1–5 words), 2 to 5 per question.
 - If age is unknown, the first question asks for an age range suited to the patient (for a child: "Under 3 months", "3–12 months", "1–5 years", "6–12 years", "13–17 years").
 - Ask about how long it has been going on, and how severe it is.
@@ -95,7 +97,7 @@ Return JSON: {"questions":[{"id":"q1","text":"...","options":["..."],"multi":fal
 
     const sys = `${BASE}
 Task: Decide the triage level and explain it.
-Levels: "home" (safe to treat at home), "doctor" (see a doctor within 1–2 days), "urgent" (urgent care or video visit today), "er" (emergency room now).
+Levels: "home" (home care may be reasonable for now), "doctor" (see a doctor within 1–2 days), "urgent" (urgent care or video visit today), "er" (emergency room now).
 Return JSON with exactly these keys:
 {"level":"home|doctor|urgent|er",
  "headline":"a 3–8 word plain verdict with no names, ages, or personal details",
@@ -109,7 +111,7 @@ Return JSON with exactly these keys:
     const out = await askJSON(sys, `Patient: ${patient}.\nWhat they said: "${text}"\nFollow-up answers:\n${qa || '(none)'}`);
     const arr = (x: any, n: number, m = 200) => (Array.isArray(x) ? x : []).slice(0, n).map((s: any) => clean(s, m)).filter(Boolean);
     const verdict: Verdict = {
-      level: isLevel(out.level) ? out.level : 'doctor',
+      level: isLevel(out.level) ? out.level : 'urgent',
       headline: clean(out.headline, 80),
       summary: clean(out.summary, 600),
       doNow: arr(out.doNow, 5),

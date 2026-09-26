@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://freedoc.live/health-data' },
 };
 
-const UPDATED = 'September 23, 2026';
+const UPDATED = 'September 26, 2026';
 
 export default function HealthData() {
   return (
@@ -31,7 +31,7 @@ export default function HealthData() {
         <h2>Why we collect it</h2>
         <ul className="list">
           <li>To generate your follow-up questions and your suggested care level. This is the only use of what you type and your answers.</li>
-          <li>To count, without anything you typed, how often each care level is shown, so we can check that FreeDoc stays careful and working.</li>
+          <li>We do not use health data for analytics. Our anonymous analytics count page visits and button taps only.</li>
         </ul>
         <p>We do not use health data for advertising, we do not sell it, and we do not use it to build a profile of you.</p>
 
@@ -39,12 +39,12 @@ export default function HealthData() {
         <ul className="list">
           <li><strong>OpenAI</strong> receives what you type and your answers, over an encrypted connection, only to produce your result. Under OpenAI’s API policies, this data is not used to train its models and may be kept for up to 30 days for abuse and safety monitoring before it is deleted.</li>
           <li><strong>Vercel</strong> hosts FreeDoc. Your request passes through Vercel’s servers to reach OpenAI. We do not write what you type to our logs or databases.</li>
-          <li><strong>Vercel Web Analytics</strong> receives anonymous, cookie-free event counts, such as “a result was shown at the Urgent care level for a child.” These counts never include what you typed or your answers, and they are not tied to your identity.</li>
+          <li><strong>Vercel Web Analytics</strong> receives anonymous, cookie-free counts of page visits and button taps, such as “a result was shown.” These counts never include what you typed, your answers, the suggested care level, or who a check was for, and they are not tied to your identity.</li>
         </ul>
         <p>These companies act as our service providers (processors). We do not share or sell consumer health data to any other third party, including sponsors, advertisers, or the care services we link to. If you tap a link to a care service, that service does not receive your symptoms from us.</p>
 
         <h2>How long we keep it</h2>
-        <p>FreeDoc does not store your symptom checks. Your result lives only in your browser tab and disappears when you close or reset it. Our AI provider may keep a copy for up to 30 days, as described above. Anonymous counts are kept in aggregate.</p>
+        <p>FreeDoc does not store your symptom checks. Your result lives only in your browser tab and disappears when you close or reset it. Our AI provider may keep a copy for up to 30 days, as described above. Anonymous visit and tap counts, which contain no health data, are kept in aggregate.</p>
 
         <h2>Your consent</h2>
         <p>We ask for your consent on the symptom check before collecting any health data. Tapping the check button after reading the notice above it is your consent. You can withdraw consent at any time by not using the symptom check, and by contacting us about any data you want deleted.</p>

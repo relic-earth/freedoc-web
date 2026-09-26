@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
 import { detectEmergency, type EmergencyKind } from '@/lib/emergency';
 import { LEVELS, WHO, medlineUrl, type Question, type Verdict, type Who } from '@/lib/triage';
-import { CARE, SPONSORS } from '@/lib/partners';
+import { CARE, SPONSOR } from '@/lib/partners';
 import { BotLine, Reactor } from '@/components/Chrome';
 
 type Step = 'start' | 'loadingQ' | 'questions' | 'loadingV' | 'verdict' | 'emergency';
@@ -37,7 +37,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   function goEmergency(kind: EmergencyKind) {
     setEmergency(kind);
     setStep('emergency');
-    track('emergency_screen', { kind: kind || 'unknown' });
+    track('emergency_screen');
   }
 
   async function post(payload: any) {
@@ -55,7 +55,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
     const em = detectEmergency(t);
     if (em) return goEmergency(em);
     setStep('loadingQ');
-    track('triage_start', { who });
+    track('triage_start');
     try {
       const j = await post({ step: 'questions', who, text: t });
       if (j.type === 'emergency') return goEmergency(j.kind);
@@ -80,7 +80,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
       if (j.type === 'emergency') return goEmergency(j.kind);
       setVerdict(j.verdict);
       setStep('verdict');
-      track('triage_verdict', { who, level: j.verdict.level });
+      track('triage_verdict');
     } catch (err: any) {
       setError(err.message);
       setStep('questions');
@@ -121,16 +121,16 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
       `Details:`,
       qa,
       ``,
-      `FreeDoc triage: ${L.emoji} ${L.label}`,
+      `FreeDoc suggested care level (AI-generated, not a diagnosis): ${L.label}`,
       verdict.summary,
       ``,
-      `Go to the ER if:`,
+      `Go to the ER or call 911 if:`,
       ...verdict.watchFor.map((w) => `• ${w}`),
       ``,
       `Questions for the doctor:`,
       ...verdict.askDoctor.map((w) => `• ${w}`),
       ``,
-      `FreeDoc is AI guidance, not a diagnosis. freedoc.live`,
+      `FreeDoc is an AI tool that shares general health information. It is not medical advice and not a diagnosis. freedoc.live`,
     ].join('\n');
   }, [verdict, questions, answers, who, text]);
 
@@ -139,8 +139,8 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
   async function share() {
     if (!verdict) return;
     const L = LEVELS[verdict.level];
-    const msg = `FreeDoc told me: ${L.emoji} ${L.label}. Free symptom check in 60 seconds.`;
-    track('share_result', { level: verdict.level });
+    const msg = `FreeDoc suggested: ${L.label}. Free AI symptom check.`;
+    track('share_result');
     try {
       if (navigator.share) {
         await navigator.share({ title: 'FreeDoc', text: msg, url: shareUrl });
@@ -171,7 +171,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
         <form onSubmit={start} className="card start-card">
           <p className="composer-h">
             <span className="hud-mono">MESSAGE #triage</span>
-            <span className="hud-mono dim">ENCRYPTED IN TRANSIT · NOT STORED</span>
+            <span className="hud-mono dim">AI tool · Not a doctor or nurse</span>
           </p>
           <p className="step-label">Who is sick?</p>
           <div className="who-row" role="radiogroup" aria-label="Who is sick">
@@ -207,7 +207,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
             Check symptoms — free
           </button>
           <p className="fine">
-            By tapping the button, you agree to the <a href="/terms">Terms</a> and consent to sending what you type to our AI provider to get your answer, as described in our{' '}
+            You are using an AI tool, not talking to a doctor or nurse. By tapping the button, you confirm you are 18 or older, agree to the <a href="/terms">Terms</a>, and consent to sending what you type to our AI provider to get a suggestion, as described in our{' '}
             <a href="/health-data">Health Data Policy</a>. FreeDoc is not medical advice. Emergency? Call 911.
           </p>
         </form>
@@ -227,7 +227,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
         <div className="card">
           <BotLine />
           <p className="step-label">A few quick questions</p>
-          <p className="lede">Tap the answers that fit. This is what a nurse would ask.</p>
+          <p className="lede">Tap the answers that fit. They help FreeDoc suggest how soon to get care.</p>
           {questions.map((q, i) => (
             <fieldset key={q.id} className="q">
               <legend>
@@ -248,7 +248,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           ))}
           {error && <p className="err">{error}</p>}
           <button className="go" onClick={() => finish()}>
-            Get my answer
+            See my suggested next step
           </button>
           <button className="link-btn" onClick={reset}>
             Start over
@@ -262,7 +262,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           {emergency === 'crisis' ? (
             <>
               <p className="em-title">You don’t have to go through this alone.</p>
-              <p className="lede">Talk to someone right now. It’s free, private, and open 24/7.</p>
+              <p className="lede">You can talk to someone right now. It’s free and open 24/7.</p>
               <a className="em-btn" href="tel:988" onClick={() => track('crisis_call')}>Call 988</a>
               <a className="em-btn alt" href="sms:988">Text 988</a>
               <a className="em-btn ghost" href="tel:911">Call 911 if you are in danger now</a>
@@ -285,12 +285,13 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
         <div className="verdict-wrap">
           <div className="verdict" style={{ ['--lv' as any]: LEVELS[verdict.level].color, ['--lvbg' as any]: LEVELS[verdict.level].bg }}>
             <BotLine />
-            <p className="v-kicker">Triage result</p>
+            <p className="v-kicker">Suggested care level · AI-generated</p>
             <p className="v-level">
               <span aria-hidden>{LEVELS[verdict.level].emoji}</span> {LEVELS[verdict.level].label}
             </p>
             {verdict.headline && <p className="v-head">{verdict.headline}</p>}
             <p className="v-sum">{verdict.summary}</p>
+            <p className="v-legal">This is general information from an AI, not a diagnosis or medical advice. If symptoms get worse, last, or worry you, seek care in person, even if FreeDoc suggested a lower level. In an emergency, call 911.</p>
           </div>
 
           {/* Monetization 1: referral at the moment of need */}
@@ -304,14 +305,14 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                   target={c.kind === 'call' ? undefined : '_blank'}
                   rel="noopener sponsored"
                   className={`care-btn ${c.kind}`}
-                  onClick={() => track('care_click', { level: verdict.level, id: c.id })}
+                  onClick={() => track('care_click', { id: c.id })}
                 >
                   <span className="care-title">{c.title} →</span>
                   <span className="care-sub">{c.sub}</span>
                 </a>
               ))}
             </div>
-            <p className="disclose">FreeDoc may earn a referral fee from some links. It never changes your answer.</p>
+            <p className="disclose">These are third-party services that FreeDoc does not run or endorse. FreeDoc may earn a referral fee from some links, and fees never change the suggested care level.</p>
           </div>
 
           {/* Virality 2 + 4: share and send */}
@@ -353,7 +354,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
           <div className="grid2">
             {verdict.doNow.length > 0 && (
               <div className="card">
-                <p className="step-label">Do this now</p>
+                <p className="step-label">Steps to consider now</p>
                 <ul className="list">{verdict.doNow.map((d) => <li key={d}>{d}</li>)}</ul>
               </div>
             )}
@@ -373,7 +374,7 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                     </li>
                   ))}
                 </ul>
-                <p className="disclose">These are common possibilities a clinician may consider. They are not a diagnosis.</p>
+                <p className="disclose">These are general possibilities a clinician may consider. They are not a diagnosis, and only a clinician who examines the person can diagnose.</p>
               </div>
             )}
             {verdict.askDoctor.length > 0 && (
@@ -391,19 +392,20 @@ export default function Triage({ initialText = '', initialWho = 'me' as Who, aut
                 MedlinePlus on “{verdict.topic}” →
               </a>
             </p>
+            <p className="disclose">FreeDoc is not affiliated with or endorsed by the National Library of Medicine.</p>
           </div>
 
           {/* Monetization 3: topic sponsorship slot (house ad until sold) */}
-          <a className="sponsor" href={SPONSORS[who].url} onClick={() => track('sponsor_click', { topic: SPONSORS[who].topic })}>
-            <span className="sp-tag">{SPONSORS[who].name ? 'Sponsored' : 'Sponsor this section'}</span>
-            <span className="sp-line">{SPONSORS[who].name ? `${SPONSORS[who].name} — ${SPONSORS[who].line}` : SPONSORS[who].line}</span>
+          <a className="sponsor" href={SPONSOR.url} onClick={() => track('sponsor_click')}>
+            <span className="sp-tag">{SPONSOR.name ? 'Sponsored' : 'Sponsor this page'}</span>
+            <span className="sp-line">{SPONSOR.name ? `${SPONSOR.name} — ${SPONSOR.line}` : SPONSOR.line}</span>
           </a>
 
           {/* Monetization 2: FreeDoc Plus */}
           <a className="plus-teaser" href="/plus" onClick={() => track('plus_teaser_click')}>
             <span className="pt-badge">FreeDoc Plus</span>
-            <span className="pt-line">Keep a health history for the whole family, with doctor-ready summaries and medicine reminders.</span>
-            <span className="pt-cta">See Plus →</span>
+            <span className="pt-line">Family profiles, saved history, and doctor-ready summaries are coming soon. Join the free waitlist.</span>
+            <span className="pt-cta">Join waitlist →</span>
           </a>
 
           <button className="go ghost" onClick={reset}>

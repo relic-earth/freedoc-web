@@ -12,11 +12,11 @@ export function Logo() {
 }
 
 const CHANNELS = [
-  { href: '/', name: 'triage', topic: 'Should I go to the ER? A clear answer in about 60 seconds.' },
-  { href: '/insurance', name: 'free-insurance', topic: 'See if you qualify for free health insurance in about 30 seconds.' },
+  { href: '/', name: 'triage', topic: 'Should I go to the ER? A suggested next step in about 60 seconds.' },
+  { href: '/insurance', name: 'free-insurance', topic: 'See if you may qualify for free or low-cost health insurance.' },
   { href: '/symptoms', name: 'symptom-guides', topic: 'Warning signs that mean ER, urgent care, or home care.' },
-  { href: '/plus', name: 'freedoc-plus', topic: 'Health history for the whole family, ready for the doctor.' },
-  { href: '/advertise', name: 'sponsors', topic: 'Reach people at the exact moment they choose where to get care.' },
+  { href: '/plus', name: 'freedoc-plus', topic: 'Family health history tools, coming soon. Join the waitlist.' },
+  { href: '/advertise', name: 'sponsors', topic: 'Sponsor a page, with no personal or health-based targeting.' },
   { href: '/privacy', name: 'privacy', topic: 'Privacy, health data, and terms. FreeDoc is built to know as little about you as possible.' },
 ];
 
@@ -118,7 +118,7 @@ export function Footer() {
         <div className="foot-grid">
           <div>
             <Logo />
-            <p className="foot-note">Free AI triage that helps you decide where to go for care. It is not a doctor and does not diagnose.</p>
+            <p className="foot-note">A free AI tool that shares general health information and suggests how soon to seek care. It is not a doctor or nurse, and it does not diagnose or treat.</p>
           </div>
           <div className="foot-links">
             <Link href="/insurance">Free health insurance</Link>
@@ -134,7 +134,7 @@ export function Footer() {
           Emergency: call <a href="tel:911">911</a>. Crisis or suicidal thoughts: call or text <a href="tel:988">988</a>. Poison Control:{' '}
           <a href="tel:18002221222">1‑800‑222‑1222</a>.
         </p>
-        <p className="foot-legal">FreeDoc provides general health information for educational purposes. It is not medical advice, diagnosis, or treatment. Always follow the advice of a licensed clinician.</p>
+        <p className="foot-legal">FreeDoc provides general health information for educational purposes. It is not medical advice, diagnosis, or treatment, and using it does not create a clinician–patient relationship. Always follow the advice of a licensed clinician. FreeDoc is not a government agency, an insurance company, or a licensed insurance agent or broker, and it is not affiliated with Medicaid, CHIP, Medicare, or HealthCare.gov. © 2026 Island Global Company.</p>
       </div>
     </footer>
   );

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://freedoc.live/terms' },
 };
 
-const UPDATED = 'September 23, 2026';
+const UPDATED = 'September 26, 2026';
 
 export default function Terms() {
   return (
@@ -25,22 +25,25 @@ export default function Terms() {
         <p>FreeDoc (freedoc.live) is operated by Island Global Company (“FreeDoc,” “we,” “us”). You can reach us at <a href="mailto:info@island.contact">info@island.contact</a>.</p>
 
         <h2>2. FreeDoc is not medical care</h2>
-        <p>FreeDoc is an automated tool that uses artificial intelligence to share general health information and to suggest how soon someone may want to seek care. FreeDoc is not a doctor, nurse, or other licensed clinician. It does not examine anyone, diagnose any condition, or prescribe or recommend any treatment.</p>
+        <p>FreeDoc is an automated tool that uses artificial intelligence to share general health information and to suggest how soon someone may want to seek care. When you use FreeDoc, you are interacting with AI, not a person. FreeDoc is not a doctor, nurse, or other licensed clinician, is not a healthcare provider, and does not practice medicine or nursing. It does not examine anyone, diagnose any condition, or prescribe or recommend any treatment. Suggested care levels are general suggestions, not instructions.</p>
         <p>Using FreeDoc does not create a doctor–patient or any other clinician relationship. Anything FreeDoc shows you, including a suggested care level, a list of things a doctor may check for, or steps to take, is general information only. It is not medical advice and it is not a substitute for advice from a licensed clinician who can evaluate the person in need.</p>
         <p>AI can be wrong, incomplete, or out of date, and FreeDoc only knows what you tell it. Always use your own judgment. If a symptom is severe, getting worse, or worrying you, seek care in person, even if FreeDoc suggested a lower level of care. Never ignore or delay professional medical advice because of something you read on FreeDoc.</p>
 
         <h2>3. Who can use FreeDoc</h2>
-        <p>You must be at least 18 years old and live in the United States to use FreeDoc. You may use FreeDoc to help think through care for a child or another person in your care, but you are responsible for decisions about that person’s care. FreeDoc is not directed to children, and children should not use it themselves.</p>
+        <p>You must be at least 18 years old and live in the United States to use FreeDoc. If you are under 18, please ask a parent or another trusted adult for help. You may use FreeDoc to help think through care for a child or another person in your care, but you are responsible for decisions about that person’s care. FreeDoc is not directed to children, and children should not use it themselves.</p>
 
         <h2>4. Your information</h2>
         <p>Our <Link href="/privacy">Privacy Policy</Link> and <Link href="/health-data">Consumer Health Data Privacy Policy</Link> explain what we collect and how we use it. When you check symptoms, you consent to the processing described in those policies.</p>
 
         <h2>5. Links, referrals, and sponsors</h2>
-        <p>FreeDoc may link to third-party care options, such as telehealth services, urgent care finders, and pharmacies, and may show sponsored content. We do not provide, control, or endorse those services, and you use them under their own terms. We may earn a fee when you use some links. Fees and sponsorships never change the care level FreeDoc shows you.</p>
+        <p>FreeDoc may link to third-party care options, such as telehealth services, urgent care finders, and pharmacies, and may show sponsored content. We do not provide, control, or endorse those services, and you use them under their own terms. We may earn a fee when you use some links. Fees and sponsorships never change the care level FreeDoc shows you, and sponsors are never chosen from your symptoms, answers, or results.</p>
 
-        <h2>5a. Paid plans and sponsorships</h2>
-        <p>FreeDoc Plus is a paid subscription billed through Stripe at the price shown at checkout, currently $7 per month or $59 per year, plus any applicable tax. Plus is rolling out in stages, and some listed features may not be available yet when you subscribe. Your subscription renews automatically at the end of each billing period until you cancel. You can cancel at any time by emailing <a href="mailto:info@island.contact?subject=Cancel%20FreeDoc%20Plus">info@island.contact</a>; we cancel the same day, and we refund unused time on request. The free symptom check does not require a subscription.</p>
-        <p>Topic sponsorships are billed monthly in advance by invoice, payable by card through Stripe or by wire or ACH through Mercury. Sponsorships can be canceled before the next billing period. Sponsored content is labeled and never changes the care level FreeDoc shows.</p>
+        <h2>5b. Health insurance information</h2>
+        <p>The coverage finder gives a rough estimate based on general program rules and the numbers you enter. It is not a determination of eligibility, and only your state Medicaid agency, CHIP program, Medicare, or the health insurance marketplace can decide eligibility. FreeDoc is not a government agency, an insurance company, or a licensed insurance agent or broker. FreeDoc does not sell insurance, is not affiliated with Medicaid, CHIP, Medicare, CMS, or HealthCare.gov, and does not recommend any plan. Third-party plans linked from FreeDoc, such as short-term or discount plans, may not be ACA-compliant health insurance and may not be available where you live. Information on FreeDoc is not insurance, tax, or legal advice.</p>
+
+        <h2>5a. FreeDoc Plus and sponsorships</h2>
+        <p>FreeDoc Plus is in development and is not currently for sale. Joining the waitlist is free and does not commit you to buy anything. Before Plus launches, we will publish its features, price, renewal terms, and how to cancel. Anyone who paid for Plus before it was available can email <a href="mailto:info@island.contact?subject=Cancel%20FreeDoc%20Plus">info@island.contact</a> to cancel and receive a full refund. The free symptom check does not require a subscription.</p>
+        <p>Page sponsorships are billed monthly in advance by invoice, payable by card through Stripe or by wire or ACH through Mercury. Sponsorships can be canceled before the next billing period. Sponsored content is labeled, is reviewed before it runs, and never changes the care level FreeDoc shows.</p>
 
         <h2>6. Acceptable use</h2>
         <p>Do not misuse FreeDoc. That includes trying to break, overload, or reverse engineer it, scraping it, using it to build a competing service, or entering other people’s personal information without their permission.</p>

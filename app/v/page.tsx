@@ -7,11 +7,11 @@ type SP = Promise<{ l?: string }>;
 export async function generateMetadata({ searchParams }: { searchParams: SP }): Promise<Metadata> {
   const { l } = await searchParams;
   const level = isLevel(l) ? l : null;
-  const title = level ? `FreeDoc says: ${LEVELS[level].label}` : 'FreeDoc — Should I go to the ER?';
+  const title = level ? `FreeDoc suggested: ${LEVELS[level].label}` : 'FreeDoc — Should I go to the ER?';
   const img = `/api/og${level ? `?l=${level}` : ''}`;
   return {
     title,
-    description: 'Free symptom check in 60 seconds. Find out if you should treat it at home, see a doctor, go to urgent care, or go to the ER.',
+    description: 'A free AI symptom checker that suggests a next step: home care, a doctor visit, urgent care, or the ER. Not medical advice.',
     openGraph: { title, images: [{ url: img, width: 1200, height: 630 }] },
     twitter: { card: 'summary_large_image', title, images: [img] },
     robots: { index: false },
@@ -27,17 +27,17 @@ export default async function SharePage({ searchParams }: { searchParams: SP }) 
         {level ? (
           <>
             <p className="kicker">
-              Someone shared their FreeDoc result
+              Someone shared a FreeDoc suggestion
             </p>
             <h1>
               {LEVELS[level].emoji} {LEVELS[level].label}
             </h1>
-            <p className="sub">Not feeling well yourself? Get your own answer in about 60 seconds. It’s free and private.</p>
+            <p className="sub">Not feeling well yourself? Get your own suggested next step in about 60 seconds. It’s free. FreeDoc is AI, not medical advice.</p>
           </>
         ) : (
           <>
             <h1>Should I go to the ER?</h1>
-            <p className="sub">Get a clear answer in about 60 seconds. Free, private, no account.</p>
+            <p className="sub">Get a suggested next step in about 60 seconds. Free, with no account. FreeDoc is AI, not medical advice.</p>
           </>
         )}
         <Triage />

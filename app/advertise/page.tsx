@@ -4,14 +4,14 @@ import { SPONSOR_MONTHLY_PRICE } from '@/lib/payments';
 
 export const metadata: Metadata = {
   title: 'Sponsor a section of FreeDoc',
-  description: 'Reach people at the moment they need care, with topic sponsorships and no personal targeting.',
+  description: 'Sponsor a FreeDoc page. Every visitor sees the same sponsor, with no personal or health-based targeting.',
 };
 
 const PACKAGES = [
-  { t: "Kids' health", d: 'Shown when a parent checks symptoms for a child. Ideal for pediatric urgent care, children’s medicine, and family health brands.' },
-  { t: 'Caring for parents', d: 'Shown to adult children checking on an older parent. Ideal for home care, senior living, and caregiver services.' },
-  { t: 'Everyday health', d: 'Shown on adult symptom checks. Ideal for pharmacies, urgent care chains, and telehealth.' },
-  { t: 'Symptom guides', d: 'Own a guide like “Fever in a child” or “Sore throat” for a season. Great for cold and flu campaigns.' },
+  { t: 'Results page', d: 'One labeled sponsor spot below every symptom-check result. Every visitor sees the same sponsor, whatever they typed or were shown.' },
+  { t: 'Symptom guides', d: 'One labeled sponsor spot on a public guide page, such as “Sore throat,” for a season. Placement is by page, never by person.' },
+  { t: 'Free insurance page', d: 'One labeled sponsor spot on the coverage page. Sponsors cannot change eligibility estimates or the order of official links.' },
+  { t: 'Site-wide', d: 'One labeled sponsor spot in the site footer on every page.' },
 ];
 
 export default function Advertise() {
@@ -19,7 +19,7 @@ export default function Advertise() {
     <div className="wrap">
       <div className="article" style={{ maxWidth: 1000 }}>
         <h1>Sponsor a section</h1>
-        <p className="intro">Reach people at the exact moment they are deciding where to get care. Sponsorships are sold by topic, never by person.</p>
+        <p className="intro">Sponsorships are sold by page, never by person. FreeDoc never uses symptoms, answers, suggested care levels, or who a check is for to choose or target a sponsor.</p>
 
         <h2>Sections available</h2>
         <div className="pkg-grid">
@@ -34,13 +34,14 @@ export default function Advertise() {
 
         <h2>Our rules</h2>
         <ul className="list">
-          <li>No targeting of individual users, and no health data shared with advertisers or ad networks.</li>
-          <li>Sponsorships are clearly labeled and never change a triage answer.</li>
-          <li>Health-related, trustworthy brands only. We review every sponsor.</li>
+          <li>No targeting of individual users, no use of health data for ads, and no health data shared with sponsors, advertisers, or ad networks.</li>
+          <li>Sponsorships are clearly labeled “Sponsored” and never change a suggested care level.</li>
+          <li>We review every sponsor and every message. No prescription drug ads, no unproven health claims, and no ads aimed at children.</li>
+          <li>Sponsors are responsible for the accuracy and legality of their own messages and offers.</li>
         </ul>
 
         <h2>Pricing and payment</h2>
-        <p>Every section is ${SPONSOR_MONTHLY_PRICE.toLocaleString()} per month, billed monthly in advance, with no long-term contract. Pay by card through a Stripe invoice, or by wire or ACH through a Mercury invoice. Tell us your section and payment method below, and we will send the invoice within one business day. Your sponsorship goes live when the first invoice is paid.</p>
+        <p>Every section is ${SPONSOR_MONTHLY_PRICE.toLocaleString()} per month, billed monthly in advance, with no long-term contract. Pay by card through a Stripe invoice, or by wire or ACH through a Mercury invoice. Tell us your section and payment method below, and we will send the invoice within one business day. Your sponsorship goes live when the first invoice is paid and your message passes review. We may decline or remove any sponsorship.</p>
 
         <h2>Book a section</h2>
         <LeadForm

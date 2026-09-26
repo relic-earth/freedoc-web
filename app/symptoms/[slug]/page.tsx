@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: P }): Promise<Metad
   if (!s) return {};
   return {
     title: `${s.question} | FreeDoc`,
-    description: `${s.intro} Get a free, clear answer in 60 seconds.`,
+    description: `${s.intro} General information, not medical advice.`,
     alternates: { canonical: `https://freedoc.live/symptoms/${s.slug}` },
     openGraph: { title: s.question, description: s.intro, images: [{ url: '/api/og', width: 1200, height: 630 }] },
   };
@@ -68,7 +68,7 @@ export default async function SymptomPage({ params }: { params: P }) {
           <a href={medlineUrl(s.name)} target="_blank" rel="noopener">
             {s.name} →
           </a>
-          . This guide is general information, not medical advice.
+          . This guide is general information for adults and caregivers. It is not medical advice, it cannot cover every case, and it is not a substitute for a clinician who can examine the person. When in doubt, seek care. FreeDoc is not affiliated with or endorsed by the National Library of Medicine.
         </p>
 
         {related.length > 0 && (

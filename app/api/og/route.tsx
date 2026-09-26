@@ -64,7 +64,7 @@ export async function GET(req: Request) {
 
         {L ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <div style={{ fontSize: 36, fontWeight: 700, color: '#374151' }}>FreeDoc says:</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: '#374151' }}>FreeDoc suggested:</div>
             <div
               style={{
                 display: 'flex',
@@ -84,12 +84,12 @@ export async function GET(req: Request) {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ fontSize: 88, fontWeight: 900, color: '#0b0f14', letterSpacing: -3, lineHeight: 1 }}>Should I go to the ER?</div>
-            <div style={{ fontSize: 40, fontWeight: 700, color: '#374151' }}>Get a clear answer in 60 seconds.</div>
+            <div style={{ fontSize: 40, fontWeight: 700, color: '#374151' }}>A suggested next step in 60 seconds.</div>
           </div>
         )}
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: 34, fontWeight: 700, color: '#0b0f14' }}>Free symptom check · 60 seconds</div>
+          <div style={{ fontSize: 34, fontWeight: 700, color: '#0b0f14' }}>Free AI symptom check · Not medical advice</div>
           <div style={{ fontSize: 34, fontWeight: 800, color: '#15803d' }}>freedoc.live</div>
         </div>
       </div>

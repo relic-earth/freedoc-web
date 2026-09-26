@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { track } from '@vercel/analytics';
-import { STATES, screen, povertyLine, LINKS, type Answers } from '@/lib/insurance';
+import { STATES, screen, LINKS, type Answers } from '@/lib/insurance';
 import { BotLine } from '@/components/Chrome';
 
 const SIZES = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -27,7 +27,7 @@ export default function CoverageFinder() {
     if (!who.adults && !who.kids && !who.pregnant && !who.senior) return setErr('Pick who needs coverage.');
     const a: Answers = { state, size, income: per === 'month' ? n * 12 : n, ...who };
     setShown(a);
-    track('ins_check', { state, band: Math.min(500, Math.round((a.income / povertyLine(state, size)) * 10) * 10) });
+    track('ins_check');
     setTimeout(() => document.getElementById('ins-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   }
 
@@ -38,7 +38,7 @@ export default function CoverageFinder() {
       <form className="card start-card ins-form" onSubmit={go} id="finder">
         <div className="composer-h">
           <span className="hud-mono">Free coverage finder</span>
-          <span className="hud-mono dim">3 questions · no account · nothing saved</span>
+          <span className="hud-mono dim">Estimate only · not sent to FreeDoc</span>
         </div>
 
         <fieldset className="q">
@@ -108,8 +108,8 @@ export default function CoverageFinder() {
         </fieldset>
 
         {err && <p className="err">{err}</p>}
-        <button className="go">Show my free options</button>
-        <p className="fine">Nothing you enter leaves your device. This is an estimate; your state makes the final decision.</p>
+        <button className="go">Show my possible options</button>
+        <p className="fine">Your answers are calculated in your browser and are not sent to FreeDoc. This is an estimate only, and your state or the marketplace makes the final decision.</p>
       </form>
 
       {out && shown && (
@@ -127,7 +127,7 @@ export default function CoverageFinder() {
               <p className="ins-body">{r.body}</p>
               <div className="ins-cta">
                 {r.cta.map((c, i) => (
-                  <a key={c.url + i} className={i === 0 ? 'go' : 'go ghost'} href={c.url} target="_blank" rel="noopener" onClick={() => track('ins_apply', { result: r.track, link: c.label })}>
+                  <a key={c.url + i} className={i === 0 ? 'go' : 'go ghost'} href={c.url} target="_blank" rel="noopener" onClick={() => track('ins_apply')}>
                     {c.label} →
                   </a>
                 ))}
@@ -136,20 +136,20 @@ export default function CoverageFinder() {
           ))}
           <div className="ins-help">
             <div>
-              <h3>Want a person to do it with you, free?</h3>
-              <p>Certified helpers near you can fill out the application with you at no cost, in person or by phone.</p>
+              <h3>Want a person to help, free?</h3>
+              <p>The official HealthCare.gov local help directory lists trained assisters who can help you apply at no cost.</p>
             </div>
             <div className="ins-help-btns">
-              <a className="act primary" href={LINKS.localHelp} target="_blank" rel="noopener" onClick={() => track('ins_help', { via: 'local' })}>
+              <a className="act primary" href={LINKS.localHelp} target="_blank" rel="noopener" onClick={() => track('ins_help')}>
                 Find free local help
               </a>
-              <a className="act" href={LINKS.marketplacePhone} onClick={() => track('ins_help', { via: 'phone' })}>
-                Call 1‑800‑318‑2596
+              <a className="act" href={LINKS.marketplacePhone} onClick={() => track('ins_help')}>
+                Marketplace: 1‑800‑318‑2596
               </a>
             </div>
           </div>
           <div className="card ins-ready">
-            <span className="step-label">Have these ready to apply in about 15 minutes</span>
+            <span className="step-label">Have these ready when you apply</span>
             <ul className="list">
               <li>Social Security numbers for everyone applying (or document numbers for lawfully present immigrants)</li>
               <li>Recent pay stubs, or your best estimate of this year’s income</li>

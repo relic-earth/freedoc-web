@@ -7,12 +7,12 @@ export const LEVELS: Record<
 > = {
   home: {
     emoji: '🟢',
-    label: 'Treat at home',
+    label: 'Home care may be OK',
     short: 'Home care',
     color: '#16a34a',
     ink: '#ffffff',
     bg: '#dcfce7',
-    blurb: 'This sounds safe to manage at home for now. Keep an eye on it.',
+    blurb: 'Home care may be reasonable for now. Seek care if it gets worse, lasts, or worries you.',
   },
   doctor: {
     emoji: '🟡',
@@ -21,7 +21,7 @@ export const LEVELS: Record<
     color: '#ca8a04',
     ink: '#1a1203',
     bg: '#fef9c3',
-    blurb: 'This is worth a doctor visit soon, but it does not look like an emergency.',
+    blurb: 'A doctor visit soon may be a good idea. If anything gets worse, seek care sooner.',
   },
   urgent: {
     emoji: '🟠',
@@ -30,7 +30,7 @@ export const LEVELS: Record<
     color: '#ea580c',
     ink: '#ffffff',
     bg: '#ffedd5',
-    blurb: 'This should be checked today at urgent care or by video with a doctor.',
+    blurb: 'Consider getting checked today at urgent care or by video with a clinician.',
   },
   er: {
     emoji: '🔴',
